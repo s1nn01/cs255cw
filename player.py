@@ -128,14 +128,14 @@ class Player:
 		MAX_DEPTH = 4
 
 		def minimax(depth, maximizing):
-			term = self._terminal_value(gameBoard, me, opp, depth)
+			term = self.terminalValue(gameBoard, me, opp, depth)
 			if term is not None:
 				return term
 			if depth == 0:
 				return self._heuristic(gameBoard, me, opp)
 			
 			self.numExpanded += 1
-			moves = self._legal_moves(gameBoard)
+			moves = self.legalMoves(gameBoard)
 			if not moves:
 				return 0 
 			if maximizing:
@@ -159,7 +159,7 @@ class Player:
 			
 		best_move = None
 		best_value = -10**18
-		for col in self._ordered_moves(gameBoard, self._legal_moves(gameBoard)):
+		for col in self._ordered_moves(gameBoard, self.legalMoves(gameBoard)):
 			gameBoard.addPiece(col, me)
 			val = minimax(MAX_DEPTH - 1, False)
 			gameBoard.removePiece(col)
@@ -178,14 +178,14 @@ class Player:
 		MAX_DEPTH = 6
 
 		def alphabeta(depth, alpha, beta, maximizing):
-			term = self._terminal_value(gameBoard, me, opp, depth)
+			term = self.terminalValue(gameBoard, me, opp, depth)
 			if term is not None:
 				return term
 			if depth == 0:
 				return self._heuristic(gameBoard, me, opp)
 			
 			self.numExpanded += 1
-			moves = self._legal_moves(gameBoard)
+			moves = self.legalMoves(gameBoard)
 			if not moves:
 				return 0 
 			if maximizing:
@@ -219,7 +219,7 @@ class Player:
 		best_value = -10**18
 		alpha = -10**18
 		beta = 10**18
-		for col in self._ordered_moves(gameBoard, self._legal_moves(gameBoard)):
+		for col in self._ordered_moves(gameBoard, self.legalMoves(gameBoard)):
 			gameBoard.addPiece(col, me)
 			val = alphabeta(MAX_DEPTH - 1, alpha, beta, False)
 			gameBoard.removePiece(col)
@@ -228,7 +228,7 @@ class Player:
 				best_move = col
 			alpha = max(alpha, best_value)
 		if best_move is None:
-			moves = self._legal_moves(gameBoard)
+			moves = self.legalMoves(gameBoard)
 			return moves[0] if moves else 0
 		
 		return best_move
