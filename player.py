@@ -128,13 +128,13 @@ class Player:
 		MAX_DEPTH = 4
 
 		def minimax(depth, maximizing):
+			self.numExpanded += 1
 			term = self.terminalValue(gameBoard, me, opp, depth)
 			if term is not None:
 				return term
 			if depth == 0:
 				return self._heuristic(gameBoard, me, opp)
-			
-			self.numExpanded += 1
+
 			moves = self.legalMoves(gameBoard)
 			if not moves:
 				return 0 
@@ -166,6 +166,10 @@ class Player:
 			if val > best_value:
 				best_value = val
 				best_move = col
+		
+		if best_move is None:
+			moves = self.legalMoves(gameBoard)
+			return moves[0] if moves else 0
 
 		return best_move
 	def getMoveAlphaBeta(self, gameBoard):
@@ -178,13 +182,13 @@ class Player:
 		MAX_DEPTH = 6
 
 		def alphabeta(depth, alpha, beta, maximizing):
+			self.numExpanded += 1
 			term = self.terminalValue(gameBoard, me, opp, depth)
 			if term is not None:
 				return term
 			if depth == 0:
 				return self._heuristic(gameBoard, me, opp)
-			
-			self.numExpanded += 1
+
 			moves = self.legalMoves(gameBoard)
 			if not moves:
 				return 0 
@@ -196,7 +200,8 @@ class Player:
 					gameBoard.removePiece(col)
 					if val > best:
 						best = val
-					alpha = max(alpha, best)
+					if best > alpha:
+						alpha = best
 					if beta <= alpha:
 						self.numPruned += 1
 						break
@@ -209,7 +214,8 @@ class Player:
 					gameBoard.removePiece(col)
 					if val < best:
 						best = val
-					beta = min(beta, best)
+					if best < beta:
+						beta = best
 					if beta <= alpha:
 						self.numPruned += 1
 						break
@@ -226,7 +232,8 @@ class Player:
 			if val > best_value:
 				best_value = val
 				best_move = col
-			alpha = max(alpha, best_value)
+			if best_value > alpha:
+				alpha = best_value
 		if best_move is None:
 			moves = self.legalMoves(gameBoard)
 			return moves[0] if moves else 0
