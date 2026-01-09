@@ -38,19 +38,19 @@ class Player:
 		self.numPruned = 0 # Use this to track the number of times you prune 
 
 	def _opponent(self):
-		return "2" if self.name == "1" else "1"
+		return "O" if self.name == "X" else "X"
 	
 	def legalMoves(self, gameBoard):
 		return [c for c in range(gameBoard.numColumns) if board.colFills < board.numRows]
 	
-	def terminalValue(self, board, me, opp, depth):
-		if board.checkWin():
-			winner = board.lastPlay[2]
+	def terminalValue(self, gameBoard, me, opp, depth):
+		if gameBoard.checkWin():
+			winner = gameBoard.lastPlay[2]
 			if winner == me:
 				return 10**9 + depth
 			elif winner == opp:
 				return -10**9 - depth
-		if board.checkFull():
+		if gameBoard.checkFull():
 			return 0
 		return None
 	
@@ -84,38 +84,38 @@ class Player:
 		
 		return 0
 	
-	def _heuristic(self, board, me, opp):
-		winNum = board.winNum
-		rows = board.numRows
-		cols = board.numColumns
+	def _heuristic(self, gameBoard, me, opp):
+		winNum = gameBoard.winNum
+		rows = gameBoard.numRows
+		cols = gameBoard.numColumns
 		score = 0
 
 		center = cols // 2
 		for r in range(rows):
-			if board.gameBoard[r][center].value == me:
+			if gameBoard.gameBoard[r][center].value == me:
 				score += 3
-			elif board.gameBoard[r][center].value == opp:
+			elif gameBoard.gameBoard[r][center].value == opp:
 				score -= 3
 
 		for r in range(rows):
 			for c in range(cols - winNum + 1):
-				window = [board.gameBoard[r][c + i].value for i in range(winNum)]
+				window = [gameBoard.gameBoard[r][c + i].value for i in range(winNum)]
 				score += self._score_window(window, me, opp, winNum)
 
 		for c in range(cols):
 			for r in range(rows - winNum + 1):
-				window = [board.gameBoard[r + i][c].value for i in range(winNum)]
+				window = [gameBoard.gameBoard[r + i][c].value for i in range(winNum)]
 				score += self._score_window(window, me, opp, winNum)
 
 		for r in range(rows - winNum + 1):
 			for c in range(cols - winNum + 1):
-				window = [board.gameBoard[r + i][c + i].value for i in range(winNum)]
+				window = [gameBoard.gameBoard[r + i][c + i].value for i in range(winNum)]
 				score += self._score_window(window, me, opp, winNum)
 
 		return score
 	
-	def _ordered_moves(self, board, moves):
-		center = board.numColumns // 2
+	def _ordered_moves(self, gameBoard, moves):
+		center = gameBoard.numColumns // 2
 		return sorted(moves, key=lambda c: abs(c - center))
 	
 	def getMove(self, gameBoard):
