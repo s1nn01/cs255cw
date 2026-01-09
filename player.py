@@ -41,7 +41,7 @@ class Player:
 		return "O" if self.name == "X" else "X"
 	
 	def legalMoves(self, gameBoard):
-		return [c for c in range(gameBoard.numColumns) if gameBoard.colFills < gameBoard.numRows]
+		return [c for c in range(gameBoard.numColumns) if gameBoard.colFills[c] < gameBoard.numRows]
 	
 	def terminalValue(self, gameBoard, me, opp, depth):
 		if gameBoard.checkWin():
