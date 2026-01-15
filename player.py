@@ -54,7 +54,7 @@ class Player:
 			return 0
 		return None
 	
-	def _score_window(self, window, me, opp, winNum):
+	def scoreWindow(self, window, me, opp, winNum):
 		me_count = window.count(me)
 		opp_count = window.count(opp)
 		empty = window.count(" ")
@@ -100,23 +100,28 @@ class Player:
 		for r in range(rows):
 			for c in range(cols - winNum + 1):
 				window = [gameBoard.gameBoard[r][c + i].value for i in range(winNum)]
-				score += self._score_window(window, me, opp, winNum)
+				score += self.scoreWindow(window, me, opp, winNum)
 
 		for c in range(cols):
 			for r in range(rows - winNum + 1):
 				window = [gameBoard.gameBoard[r + i][c].value for i in range(winNum)]
-				score += self._score_window(window, me, opp, winNum)
+				score += self.scoreWindow(window, me, opp, winNum)
 
 		for r in range(rows - winNum + 1):
 			for c in range(cols - winNum + 1):
 				window = [gameBoard.gameBoard[r + i][c + i].value for i in range(winNum)]
-				score += self._score_window(window, me, opp, winNum)
+				score += self.scoreWindow(window, me, opp, winNum)
+
+		for r in range(winNum - 1, rows):
+			for c in range(cols - winNum + 1):
+				window = [gameBoard.gameBoard[r - i][c + i].value for i in range(winNum)]
+				score += self.scoreWindow(window, me, opp, winNum)
 
 		return score
 	
-	def _ordered_moves(self, gameBoard, moves):
+	def orderedMoves(self, gameBoard, moves):
 		center = gameBoard.numColumns // 2
-		return moves# sorted(moves, key=lambda c: abs(c - center))
+		return sorted(moves, key=lambda c: abs(c - center))
 	
 	def getMove(self, gameBoard):
 		self.numExpanded = 0
@@ -159,7 +164,7 @@ class Player:
 			
 		best_move = None
 		best_value = -10**18
-		for col in self._ordered_moves(gameBoard, self.legalMoves(gameBoard)):
+		for col in self.orderedMoves(gameBoard, self.legalMoves(gameBoard)):
 			gameBoard.addPiece(col, me)
 			val = minimax(MAX_DEPTH - 1, False)
 			gameBoard.removePiece(col)
@@ -225,7 +230,7 @@ class Player:
 		best_value = -10**18
 		alpha = -10**18
 		beta = 10**18
-		for col in self._ordered_moves(gameBoard, self.legalMoves(gameBoard)):
+		for col in self.orderedMoves(gameBoard, self.legalMoves(gameBoard)):
 			gameBoard.addPiece(col, me)
 			val = alphabeta(MAX_DEPTH - 1, alpha, beta, False)
 			gameBoard.removePiece(col)
