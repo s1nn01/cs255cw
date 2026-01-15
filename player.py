@@ -196,7 +196,7 @@ class Player:
 				best = -10**18
 				for col in moves:
 					gameBoard.addPiece(col, me)
-					val = max(best, alphabeta(depth - 1, alpha, beta, False))
+					val = alphabeta(depth - 1, alpha, beta, False)
 					gameBoard.removePiece(col)
 					if val > best:
 						best = val
@@ -210,7 +210,7 @@ class Player:
 				best = 10**18
 				for col in moves:
 					gameBoard.addPiece(col, opp)
-					val = min(best, alphabeta(depth - 1, alpha, beta, True))
+					val = alphabeta(depth - 1, alpha, beta, True)
 					gameBoard.removePiece(col)
 					if val < best:
 						best = val
