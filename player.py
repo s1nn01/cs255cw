@@ -116,7 +116,7 @@ class Player:
 	
 	def _ordered_moves(self, gameBoard, moves):
 		center = gameBoard.numColumns // 2
-		return sorted(moves, key=lambda c: abs(c - center))
+		return moves# sorted(moves, key=lambda c: abs(c - center))
 	
 	def getMove(self, gameBoard):
 		self.numExpanded = 0
