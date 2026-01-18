@@ -140,7 +140,7 @@ class Player:
 			if depth == 0:
 				return self._heuristic(gameBoard, me, opp)
 
-			moves = self.legalMoves(gameBoard)
+			moves = self.orderedMoves(gameBoard, self.legalMoves(gameBoard))
 			if not moves:
 				return 0 
 			if maximizing:
@@ -173,7 +173,7 @@ class Player:
 				best_move = col
 		
 		if best_move is None:
-			moves = self.legalMoves(gameBoard)
+			moves = self.orderedMoves(gameBoard, self.legalMoves(gameBoard))
 			return moves[0] if moves else 0
 
 		return best_move
@@ -194,7 +194,7 @@ class Player:
 			if depth == 0:
 				return self._heuristic(gameBoard, me, opp)
 
-			moves = self.legalMoves(gameBoard)
+			moves = self.orderedMoves(gameBoard, self.legalMoves(gameBoard))
 			if not moves:
 				return 0 
 			if maximizing:
@@ -240,7 +240,7 @@ class Player:
 			if best_value > alpha:
 				alpha = best_value
 		if best_move is None:
-			moves = self.legalMoves(gameBoard)
+			moves = self.orderedMoves(gameBoard, self.legalMoves(gameBoard))
 			return moves[0] if moves else 0
 		
 		return best_move
