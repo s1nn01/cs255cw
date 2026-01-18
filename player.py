@@ -124,8 +124,8 @@ class Player:
 		return sorted(moves, key=lambda c: abs(c - center))
 	
 	def getMove(self, gameBoard):
-		self.numExpanded = 0
-		self.numPruned = 0
+		# self.numExpanded = 0
+		# self.numPruned = 0
 
 		me = self.name 
 		opp = self._opponent()
@@ -178,8 +178,8 @@ class Player:
 
 		return best_move
 	def getMoveAlphaBeta(self, gameBoard):
-		self.numExpanded = 0
-		self.numPruned = 0
+		# self.numExpanded = 0
+		# self.numPruned = 0
 
 		me = self.name
 		opp = self._opponent()
