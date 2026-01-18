@@ -47,9 +47,9 @@ class Player:
 		if gameBoard.checkWin():
 			winner = gameBoard.lastPlay[2]
 			if winner == me:
-				return 10**9 + depth
+				return 10**9 - depth
 			elif winner == opp:
-				return -10**9 - depth
+				return -10**9 + depth
 		if gameBoard.checkFull():
 			return 0
 		return None
