@@ -24,7 +24,7 @@ for rows, cols, win_len in configs:
         
         # Test MINIMAX first (without pruning)
         p1 = player.Player("X")
-        p2 = randomPlayer.RandomPlayer("O", seed)  # Use seed from loop!
+        p2 = player.Player("O")  # Use seed from loop!
         g = game.Game(p1, p2, rows, cols, win_len)
         
         start = time.time()
@@ -39,7 +39,7 @@ for rows, cols, win_len in configs:
         
         # Test ALPHA-BETA (with same seed for fair comparison)
         p1 = player.Player("X")
-        p2 = randomPlayer.RandomPlayer("O", seed)  # SAME seed as minimax!
+        p2 = player.Player("O")  # SAME seed as minimax!
         g = game.Game(p1, p2, rows, cols, win_len)
         
         start = time.time()

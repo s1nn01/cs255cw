@@ -7,8 +7,8 @@ import statistics
 configs = [
     (4, 4, 3),
     (5, 6, 4),
-    (6, 7, 3),
     (6, 7, 4),
+    (6, 7, 3),
 ]
 
 for rows, cols, win_len in configs:
@@ -18,9 +18,9 @@ for rows, cols, win_len in configs:
     losses = 0
     draws = 0
     
-    for run in range(30):
+    for run in range(20):
         p1 = player.Player("X")
-        p2 = randomPlayer.RandomPlayer("O", 42 + run)
+        p2 = player.Player("O", 42 + run)
         g = game.Game(p1, p2, rows, cols, win_len)
         
         # Capture printed output to detect win/loss

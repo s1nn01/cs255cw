@@ -20,7 +20,7 @@ for depth in depths:
     results = []
     for run in range(30):
         p1 = player.Player("X")
-        p2 = randomPlayer.RandomPlayer("O", 42 + run)
+        p2 = player.Player("O", 42 + run)
         g = game.Game(p1, p2, rows, cols, win_len)
         
         # You need to modify getMoveAlphaBeta to accept depth parameter
