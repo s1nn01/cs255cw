@@ -20,7 +20,7 @@ for rows, cols, win_len in configs:
     
     for run in range(20):
         p1 = player.Player("X")
-        p2 = player.Player("O")
+        p2 = randomPlayer.RandomPlayer("O", 42 + run)
         g = game.Game(p1, p2, rows, cols, win_len)
         
         # Capture printed output to detect win/loss
