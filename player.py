@@ -184,7 +184,7 @@ class Player:
 		me = self.name
 		opp = self._opponent()
 
-		MAX_DEPTH = 7
+		MAX_DEPTH = 7 
 
 		def alphabeta(depth, alpha, beta, maximizing):
 			self.numExpanded += 1
