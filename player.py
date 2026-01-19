@@ -123,14 +123,14 @@ class Player:
 		center = gameBoard.numColumns // 2
 		return sorted(moves, key=lambda c: abs(c - center))
 	
-	def getMove(self, gameBoard):
+	def getMove(self, gameBoard, max_depth=7):
 		# self.numExpanded = 0
 		# self.numPruned = 0
 
 		me = self.name 
 		opp = self._opponent()
 
-		MAX_DEPTH = 5
+		MAX_DEPTH = max_depth
 
 		def minimax(depth, maximizing):
 			self.numExpanded += 1
@@ -177,14 +177,14 @@ class Player:
 			return moves[0] if moves else 0
 
 		return best_move
-	def getMoveAlphaBeta(self, gameBoard):
+	def getMoveAlphaBeta(self, gameBoard, max_depth=5):
 		# self.numExpanded = 0
 		# self.numPruned = 0
 
 		me = self.name
 		opp = self._opponent()
 
-		MAX_DEPTH = 7 
+		MAX_DEPTH = max_depth
 
 		def alphabeta(depth, alpha, beta, maximizing):
 			self.numExpanded += 1

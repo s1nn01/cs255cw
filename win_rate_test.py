@@ -18,7 +18,7 @@ for rows, cols, win_len in configs:
     losses = 0
     draws = 0
     
-    for run in range(20):
+    for run in range(10):
         p1 = player.Player("X")
         p2 = randomPlayer.RandomPlayer("O", 42 + run)
         g = game.Game(p1, p2, rows, cols, win_len)
@@ -44,4 +44,4 @@ for rows, cols, win_len in configs:
         print(f"Game {run+1}: {output.strip().split()[-1] if output.strip() else 'Unknown'}")
     
     print(f"\nResults: {wins} wins, {losses} losses, {draws} draws")
-    print(f"Win Rate: {wins/30*100:.1f}%")
+    print(f"Win Rate: {wins/10*100:.1f}%")

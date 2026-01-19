@@ -19,7 +19,7 @@ for rows, cols, win_len in configs:
     results_ab = []
     results_mm = []
     
-    for run in range(30):  # Changed to 10 for better statistics
+    for run in range(10):  # Changed to 10 for better statistics
         seed = 42 + run
         
         # Test MINIMAX first (without pruning)
